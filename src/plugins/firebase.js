@@ -14,6 +14,8 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
+
+
   firebase.auth().onAuthStateChanged(user => {
       store.dispatch("addUser", { name: user.displayName, email: user.email });
   });

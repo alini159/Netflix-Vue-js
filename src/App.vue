@@ -1,23 +1,26 @@
 <template>
   <v-app style="background: none !important">
-    <toolbar />
+    <NavBar />
     <v-main>
       <v-container fluid fill-height>
         <router-view />
       </v-container>
     </v-main>
+    <!-- <Footer /> -->
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Toolbar from "./components/Toolbar.vue";
+import NavBar from "@/components/NavBar.vue";
+// import Footer from "@/components/Footer.vue";
 
 export default {
   name: "App",
 
   components: {
-    Toolbar,
+    NavBar,
+    // Footer,
   },
 
   computed: {

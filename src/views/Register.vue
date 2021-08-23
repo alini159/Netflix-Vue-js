@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     createFirebaseUser(user) {
-      // console.log(user);
+      console.log(user);
       firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password)
@@ -42,6 +42,7 @@ export default {
           data.user
             .updateProfile({
               displayName: user.name,
+              date: user.date,
             })
             .then(() => {
               this.$router.push({ name: 'login' });

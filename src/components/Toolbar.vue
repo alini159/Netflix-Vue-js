@@ -1,9 +1,10 @@
 <template>
-  <div >
-    <v-app-bar  color="#3A0453" height="40" elevation="0" dark>
-      <v-toolbar-title class="toolbar">Jera Statz</v-toolbar-title>
+  <nav>
+    <v-app-bar app color="#3A0453" dark>
+      <v-icon class="mr-2">fas fa-video</v-icon>
+      <v-toolbar-title>Netflix Statz</v-toolbar-title>
     </v-app-bar>
-  </div>
+  </nav>
 </template>
 <script>
 export default {
@@ -12,7 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
-.toolbar{
+.toolbar {
   margin: 0 100px;
 }
 </style>
