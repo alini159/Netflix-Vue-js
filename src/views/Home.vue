@@ -1,4 +1,4 @@
-<template>
+<template >
   <v-row no-gutters justify="center" class="home">
     <v-col lg="5" md="12" class="column-cards">
       <v-card class="pa-4 ma-2" elevation="0" tile>
@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss">
 .home {
+  
   .img {
     // margin-top: 50px;
     width: 500px;

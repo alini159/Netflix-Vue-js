@@ -2,7 +2,9 @@
   <v-row no-gutters justify="center" fill-height class="login">
     <v-col lg="5" md="12" class="pr-4">
       <v-card elevation="0" class="pa-4">
-        <v-card-title class="font-weight-bold pa-0 card-title mt-16 mb-4">Login</v-card-title>
+        <v-card-title class="font-weight-bold pa-0 card-title mt-16 mb-4"
+          >Login</v-card-title
+        >
         <forms-login @login="loginWithFirebase" />
         <line-or />
         <v-row justify="center mt-10 mb-10">
@@ -16,26 +18,42 @@
       </v-card>
     </v-col>
     <v-col lg="5" md="12" class="mt-10 pl-6">
-      <v-img  src="@/assets/images/login.svg" />
+      <v-img src="@/assets/images/login.svg" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-
-import FormsLogin from "../components/FormsLogin.vue"
+import FormsLogin from "../components/FormsLogin.vue";
 import LineOr from "../components/LineOrPurple.vue";
 import OutlinedButton from "../components/OutlinedButton.vue";
 import FilledButton from "../components/FilledButton.vue";
+import firebase from "firebase";
+import {mapActions} from 'vuex'; 
 
 export default {
   name: "Login",
-  components:{
+  components: {
     LineOr,
     FilledButton,
     OutlinedButton,
     FormsLogin,
-  }
+  },
+  methods: {
+    ...mapActions(['addUser']),
+    loginWithFirebase(user) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(user.email, user.password)
+        .then((data) => {
+          this.addUser({
+            name: data.user.displayName,
+            email: data.user.email,
+          })
+          this.$router.push({ name: "dashboard" }); 
+        });
+    },
+  },
 };
 </script>
 
@@ -44,7 +62,7 @@ export default {
   .card-title {
     font-size: 25px;
     text-align: center;
-    
+
     display: block;
     color: $button-color;
     font-family: "Arial";

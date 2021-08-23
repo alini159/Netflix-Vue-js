@@ -15,16 +15,24 @@ const routes = new Router({
       name: "home",
       component: () => import("@/views/Home.vue"),
     },
-    {  
-        path: '/cadastro',
-        name: 'register',
-        component: () => import('@/views/Register.vue'),
+    {
+      path: "/cadastro",
+      name: "register",
+      component: () => import("@/views/Register.vue"),
     },
-    {  
-      path: '/entrar',
-      name: 'login',
-      component: () => import('@/views/Login.vue'),
-  },
+    {
+      path: "/entrar",
+      name: "login",
+      component: () => import("@/views/Login.vue"),
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("@/views/Dashboard.vue"),
+      meta: {
+        requiresAuth: true,
+      },
+    },
   ],
 });
 

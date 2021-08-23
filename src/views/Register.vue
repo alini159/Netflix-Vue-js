@@ -19,7 +19,7 @@
 </template>
 <script>
 import FormsRegister from "../components/FormsRegister.vue";
-// import firebase from "firebase";
+import firebase from "firebase";
 import LineOr from "../components/LineOrPurple.vue";
 import OutlinedButton from "../components/OutlinedButton.vue";
 import FilledButton from "../components/FilledButton.vue";
@@ -32,25 +32,26 @@ export default {
     FilledButton,
     OutlinedButton,
   },
-  // methods: {
-  //   createFirebaseUser(user) {
-  //     firebase
-  //       .auth()
-  //       .createUserWithEmailAndPassword(user.email, user.password)
-  //       .then((data) => {
-  //         data.user
-  //           .updateProfile({
-  //             displayName: user.name,
-  //           })
-  //           .then(() => {
-  //             this.$router.push({ name: "login" });
-  //           });
-  //       })
-  //       .catch((err) => {
-  //         this.error = err.message;
-  //       });
-  //   },
-  // },
+  methods: {
+    createFirebaseUser(user) {
+      // console.log(user);
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(user.email, user.password)
+        .then(data => {
+          data.user
+            .updateProfile({
+              displayName: user.name,
+            })
+            .then(() => {
+              this.$router.push({ name: 'login' });
+            });
+        })
+        .catch((err) => {
+          this.error = err.message;
+        });
+    },
+  },
 };
 </script>
 <style lang="scss">

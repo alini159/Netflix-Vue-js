@@ -66,6 +66,7 @@ export default {
 </script>
 <style lang="scss">
 .login-form {
+    background: none !important;
   .button {
     color: $button-text-secondary-color;
     text-transform: none;
