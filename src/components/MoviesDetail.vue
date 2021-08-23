@@ -26,63 +26,79 @@
               </v-rating>
             </v-col>
             <v-col cols="12" sm="3">
-                <span class="gray--text ml-n5">
-                    {{movie.vote_average * 10}}% | {{movie.release_date}}
-                </span>
+              <span class="gray--text ml-n5">
+                {{ movie.vote_average * 10 }}% | {{ movie.release_date }}
+              </span>
             </v-col>
             <v-col cols="12" sm="7">
-                <div class="subtitle-2 grey--text ml-n10">
-                    <span v-for="(item, index) in movie.genres" :key="index" class="ml-1">
-                        {{item.name}}
-                        <span v-if="(movie.genres.length - 1 != index)">,</span>
-                    </span>
-                </div>
+              <div class="subtitle-2 grey--text ml-n10">
+                <span
+                  v-for="(item, index) in movie.genres"
+                  :key="index"
+                  class="ml-1"
+                >
+                  {{ item.name }}
+                  <span v-if="movie.genres.length - 1 != index">,</span>
+                </span>
+              </div>
             </v-col>
           </v-row>
-          <p class="mt-5 grey--text text--darken-3 subheader">{{this.movie.overview}}</p>
+          <p class="mt-5 grey--text text--darken-3 subheader">
+            {{ this.movie.overview }}
+          </p>
           <div class="mt-5">
-              <h2 class="mt-5 grey--text text--darken-3">Featured Cast</h2>
-              <div :key="index" v-for="(crew, index) in movie.credits.crew" class="mt-5">
-                  <div v-if="index < 2" class="">
-                    <h3>{{crew.name}}</h3>
-                    <span class="grey--text">{{crew.job}}</span>
-                  </div>
+            <h2 class="mt-5 grey--text text--darken-3">Featured Cast</h2>
+            <div
+              :key="index"
+              v-for="(crew, index) in movie.credits.crew"
+              class="mt-5"
+            >
+              <div v-if="index < 2" class="">
+                <h3>{{ crew.name }}</h3>
+                <span class="grey--text">{{ crew.job }}</span>
               </div>
+            </div>
           </div>
-          <v-dialog
-          v-model="dialog"
-          persistent
-          max-width="800px"
-          >
-            <template v-slot:activator="{on, attrs}">
-                <v-btn tile color="error" v-bind="attrs" v-on="on" @click.prevent="openYouTubeModel">
-                    <v-icon left>mdi-play</v-icon>Play
-                </v-btn> 
+          <v-dialog v-model="dialog" persistent max-width="800px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                tile
+                color="error"
+                v-bind="attrs"
+                v-on="on"
+                @click.prevent="openYouTubeModel"
+              >
+                <v-icon left>mdi-play</v-icon>Play
+              </v-btn>
             </template>
             <v-card>
-                <v-card-title>
-                    <span class="headline">{{this.movie.title}}</span>
-                </v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12" sm="">
-                                <div class="iframe-container">
-                                    <img :src="mediaURL" v-if="!isVideo"/>
-                                    <iframe allowfullscreen v-if="isVideo" :src="mediaURL"></iframe>
-                                </div>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="error" text @click="dialog = false">Sair</v-btn>
-                </v-card-actions>
+              <v-card-title>
+                <span class="headline">{{ this.movie.title }}</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="">
+                      <div class="iframe-container">
+                        <img :src="mediaURL" v-if="!isVideo" />
+                        <iframe
+                          allowfullscreen
+                          v-if="isVideo"
+                          :src="mediaURL"
+                        ></iframe>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="error" text @click="dialog = false">Sair</v-btn>
+              </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-btn tile color="error" class="ml-2">
-              <v-icon left>mdi-movie-open-star</v-icon>Watchlist
+          <v-btn tile color="error" class="ml-2" >
+            <v-icon left>mdi-movie-open-star</v-icon>Watchlist
           </v-btn>
         </v-col>
       </v-row>
@@ -108,6 +124,11 @@ export default {
       dialog: false,
     };
   },
+  computed: {
+    posterPath() {
+      return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
+    },
+  },
   mounted() {
     this.fetchMovie(this.$route.params.id);
   },
@@ -117,11 +138,6 @@ export default {
         this.fetchMovie(this.$route.params.id);
       },
       imediate: true,
-    },
-  },
-  computed: {
-    posterPath() {
-      return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
     },
   },
   methods: {

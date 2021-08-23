@@ -29,7 +29,7 @@ import LineOr from "../components/LineOrPurple.vue";
 import OutlinedButton from "../components/OutlinedButton.vue";
 import FilledButton from "../components/FilledButton.vue";
 import firebase from "firebase";
-import {mapActions} from 'vuex'; 
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -40,7 +40,7 @@ export default {
     FormsLogin,
   },
   methods: {
-    ...mapActions(['addUser']),
+    ...mapActions(["addUser"]),
     loginWithFirebase(user) {
       firebase
         .auth()
@@ -49,8 +49,12 @@ export default {
           this.addUser({
             name: data.user.displayName,
             email: data.user.email,
-          })
-          this.$router.push({ name: "dashboard" }); 
+          }).then(() => {
+            this.$router.push({ name: "perfil" });
+          });
+        })
+        .catch((err) => {
+          this.error = err.message;
         });
     },
   },

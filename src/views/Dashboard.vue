@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar/>
     <PopularMovies />
     <UpcomingMovies />
   </div>
@@ -11,11 +12,13 @@
 import { mapGetters } from "vuex";
 import PopularMovies from "../components/PopularMovies.vue";
 import UpcomingMovies from "../components/UpcomingMovies.vue";
+import NavBar from "@/components/NavBar.vue";
 
 
 export default {
   name: "Dashboard",
   components: {
+    NavBar,
     PopularMovies,
     UpcomingMovies,
     // Footer,

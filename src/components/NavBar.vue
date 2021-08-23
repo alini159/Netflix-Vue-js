@@ -25,11 +25,9 @@
           <v-btn text :to="`/movie/${item.id}`">{{ item.title }}</v-btn>
         </template>
       </v-autocomplete>
-      <v-btn icon class="mr-4 ml-2" to="/Perfil">
-        <v-avatar size="100">
-          <v-img src="../assets/images/avatarIcons/3.png"></v-img>
-        </v-avatar>
-      </v-btn>
+      <v-avatar size="100">
+        <v-img src="../assets/images/avatarIcons/3.png"></v-img>
+      </v-avatar>
     </v-app-bar>
   </nav>
 </template>

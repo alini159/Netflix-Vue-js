@@ -2,7 +2,8 @@
   <v-row no-gutters justify="center" fill-height class="register">
     <v-col lg="5" md="12" class="pr-8">
       <v-card elevation="0" class="pa-6 mt-6">
-        <v-card-title class="font-weight-bold pa-0 mb-0 mt-2 card-title">Cadastro</v-card-title
+        <v-card-title class="font-weight-bold pa-0 mb-0 mt-2 card-title"
+          >Cadastro</v-card-title
         >
         <forms-register @register="createFirebaseUser" />
         <line-or />
@@ -13,7 +14,7 @@
       </v-card>
     </v-col>
     <v-col lg="5" md="12" class="mt-4 pl-20">
-      <v-img   src="@/assets/images/cadastro.svg" />
+      <v-img src="@/assets/images/cadastro.svg" />
     </v-col>
   </v-row>
 </template>
@@ -23,6 +24,7 @@ import firebase from "firebase";
 import LineOr from "../components/LineOrPurple.vue";
 import OutlinedButton from "../components/OutlinedButton.vue";
 import FilledButton from "../components/FilledButton.vue";
+import { writeUserName } from "../plugins/db";
 
 export default {
   name: "Register",
@@ -35,22 +37,25 @@ export default {
   methods: {
     createFirebaseUser(user) {
       console.log(user);
+      this.submitDataUser(user);
       firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password)
-        .then(data => {
+        .then((data) => {
           data.user
             .updateProfile({
               displayName: user.name,
-              date: user.date,
             })
             .then(() => {
-              this.$router.push({ name: 'login' });
+              this.$router.push({ name: "perfil" });
             });
         })
         .catch((err) => {
           this.error = err.message;
         });
+    },
+    submitDataUser(user) {
+      writeUserName(user.name);
     },
   },
 };
