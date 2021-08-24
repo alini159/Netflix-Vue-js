@@ -8,7 +8,14 @@
         <forms-login @login="loginWithFirebase" />
         <line-or />
         <v-row justify="center mt-10 mb-10">
-          <outlined-button text="Não possuo conta" />
+          <v-btn
+            style="background: none !important"
+            elevation="0"
+            class="mt-4 mb-1"
+            to="/cadastro"
+          >
+            <outlined-button text="Não possuo conta"></outlined-button>
+          </v-btn>
           <filled-button
             text="Entrar com Facebook"
             icon="mdi-facebook"
@@ -40,6 +47,9 @@ export default {
     FormsLogin,
   },
   methods: {
+    toRegister() {
+      this.$router.push({ name: "register" });
+    },
     ...mapActions(["addUser"]),
     loginWithFirebase(user) {
       firebase
@@ -57,6 +67,21 @@ export default {
           this.error = err.message;
         });
     },
+  },
+  loginWithFacebook() {
+    var provider = new firebase.auth.FacebookAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console(result);
+        if (result.credential.accessToken) {
+          this.redirectUser(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>

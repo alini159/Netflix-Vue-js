@@ -8,8 +8,15 @@
         <forms-register @register="createFirebaseUser" />
         <line-or />
         <v-row justify="center mt-4 mb-10">
-          <outlined-button text="Já possuo conta" />
-          <filled-button text="Entrar com Facebook" icon="mdi-facebook" />
+          <v-btn
+            style="background: none !important"
+            elevation="0"
+            class="mt-4 mb-2"
+            to="/entrar"
+          >
+            <outlined-button text="Já Possuo Conta"></outlined-button>
+          </v-btn>
+          <filled-button text="Entrar com Facebook" icon="mdi-facebook" @click="loginWithFacebook"/>
         </v-row>
       </v-card>
     </v-col>
@@ -54,9 +61,24 @@ export default {
           this.error = err.message;
         });
     },
-    submitDataUser(user) {
-      writeUserName(user.name);
+    loginWithFacebook() {
+      var provider = new firebase.auth.FacebookAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          console(result);
+          if (result.credential.accessToken) {
+            this.redirectUser(result);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+  },
+  submitDataUser(user) {
+    writeUserName(user.name);
   },
 };
 </script>
