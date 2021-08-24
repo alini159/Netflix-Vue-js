@@ -16,7 +16,11 @@
           >
             <outlined-button text="Já Possuo Conta"></outlined-button>
           </v-btn>
-          <filled-button text="Entrar com Facebook" icon="mdi-facebook" @click="loginWithFacebook"/>
+          <filled-button
+            text="Entrar com Facebook"
+            icon="mdi-facebook"
+            @click="loginWithFacebook"
+          />
         </v-row>
       </v-card>
     </v-col>
@@ -43,8 +47,6 @@ export default {
   },
   methods: {
     createFirebaseUser(user) {
-      console.log(user);
-      this.submitDataUser(user);
       firebase
         .auth()
         .createUserWithEmailAndPassword(user.email, user.password)
@@ -61,22 +63,9 @@ export default {
           this.error = err.message;
         });
     },
-    loginWithFacebook() {
-      var provider = new firebase.auth.FacebookAuthProvider();
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          console(result);
-          if (result.credential.accessToken) {
-            this.redirectUser(result);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
   },
+  
+
   submitDataUser(user) {
     writeUserName(user.name);
   },

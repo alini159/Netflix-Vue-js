@@ -4,13 +4,13 @@
     <v-col cols="auto">
       <v-card>
         <v-row>
-          <v-avatar size="250">
+          <v-avatar size="300">
             <v-img src="../assets/images/avatarIcons/3.png"></v-img>
           </v-avatar>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
-          <v-card-title v-bind:="names">{{ userName }}</v-card-title>
+          <v-card-title >{{ userName }}</v-card-title>
           <v-spacer> </v-spacer>
         </v-row>
         <v-row>
@@ -35,7 +35,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      userName: "",
+      userName: '',
     };
   },
   computed: {

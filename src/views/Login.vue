@@ -16,11 +16,11 @@
           >
             <outlined-button text="Não possuo conta"></outlined-button>
           </v-btn>
-          <filled-button
-            text="Entrar com Facebook"
-            icon="mdi-facebook"
-            @click="loginWithFacebook"
-          />
+            <filled-button
+              text="Entrar com Facebook"
+              icon="mdi-facebook"
+              @click="loginWithFacebook"
+            />
         </v-row>
       </v-card>
     </v-col>
@@ -39,7 +39,7 @@ import firebase from "firebase";
 import { mapActions } from "vuex";
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     LineOr,
     FilledButton,
@@ -47,10 +47,7 @@ export default {
     FormsLogin,
   },
   methods: {
-    toRegister() {
-      this.$router.push({ name: "register" });
-    },
-    ...mapActions(["addUser"]),
+    ...mapActions(['addUser']),
     loginWithFirebase(user) {
       firebase
         .auth()
@@ -63,13 +60,14 @@ export default {
             this.$router.push({ name: "perfil" });
           });
         })
-        .catch((err) => {
-          this.error = err.message;
+        .catch((error) => {
+          console.log(error);
         });
     },
   },
   loginWithFacebook() {
     var provider = new firebase.auth.FacebookAuthProvider();
+
     firebase
       .auth()
       .signInWithPopup(provider)
